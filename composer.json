@@ -1,0 +1,28 @@
+{
+    "name": "andrew-petrenko/wish-core-logic",
+    "description": "description",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+          "name": "andrew",
+          "email": "some@email.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+          "WishApp\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+          "WishApp\\Tests\\": "test/"
+        }
+    },
+    "require": {
+        "php": "^7.4",
+        "phpunit/phpunit": "^9.2",
+        "ramsey/uuid": "^4.1",
+        "moneyphp/money": "^3.3"
+    }
+}
