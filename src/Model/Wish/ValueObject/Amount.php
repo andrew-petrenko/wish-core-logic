@@ -1,11 +1,11 @@
 <?php
 
-namespace WishApp\ValueObject;
+namespace WishApp\Model\Wish\ValueObject;
 
 use Money\Currency;
 use Money\Money;
 
-class WishAmount
+class Amount
 {
     private Money $goalAmount;
     private ?Money $depositedAmount;

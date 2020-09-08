@@ -6,14 +6,14 @@ use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use WishApp\Model\Exception\ModelNotFoundException;
-use WishApp\Model\Wish;
-use WishApp\Model\WishCollection;
+use WishApp\Model\Wish\ValueObject\Amount;
+use WishApp\Model\Wish\Wish;
+use WishApp\Model\Wish\WishCollection;
 use WishApp\Repository\Contracts\WishRepositoryInterface;
 use WishApp\Service\Wish\Contracts\WishServiceInterface;
 use WishApp\Service\Wish\DTO\CreateWishDTO;
 use WishApp\Service\Wish\DTO\UpdateWishDTO;
 use WishApp\Service\Wish\Exception\PermissionDeniedException;
-use WishApp\ValueObject\WishAmount;
 
 /**
  * @TODO how define is user authorized to update/delete some wish?
@@ -36,7 +36,7 @@ class WishService implements WishServiceInterface
             Uuid::uuid4(),
             $createDTO->getUserId(),
             $createDTO->getTitle(),
-            new WishAmount($createDTO->getGoalAmount()),
+            new Amount($createDTO->getGoalAmount()),
             $createDTO->getDescription(),
             $createDTO->getDueDate(),
         );

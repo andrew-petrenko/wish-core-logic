@@ -2,8 +2,8 @@
 
 namespace WishApp\Service\Auth\Contracts;
 
-use WishApp\ValueObject\HashedPassword;
-use WishApp\ValueObject\Password;
+use WishApp\Model\User\ValueObject\HashedPassword;
+use WishApp\Model\User\ValueObject\Password;
 
 interface PasswordServiceInterface
 {

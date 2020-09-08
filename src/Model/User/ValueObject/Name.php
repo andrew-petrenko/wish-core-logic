@@ -1,21 +1,21 @@
 <?php
 
-namespace WishApp\ValueObject;
+namespace WishApp\Model\User\ValueObject;
 
 use WishApp\Util\StringValueObject;
 use WishApp\Util\ValidatableValueObject;
 
-class Email extends StringValueObject
+class Name extends StringValueObject
 {
     use ValidatableValueObject;
 
     protected static function isValid(string $value): bool
     {
-        return filter_var($value, FILTER_VALIDATE_EMAIL);
+        return preg_match('#^[A-Za-z]{1,255}#', $value);
     }
 
     protected static function validationErrorMessage(): string
     {
-        return 'Email is invalid';
+        return 'Name is invalid';
     }
 }

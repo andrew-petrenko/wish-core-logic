@@ -1,6 +1,6 @@
 <?php
 
-namespace WishApp\ValueObject;
+namespace WishApp\Model\User\ValueObject;
 
 use WishApp\Util\StringValueObject;
 use WishApp\Util\ValidatableValueObject;

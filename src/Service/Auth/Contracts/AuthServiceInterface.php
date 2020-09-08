@@ -3,12 +3,12 @@
 namespace WishApp\Service\Auth\Contracts;
 
 use WishApp\Model\Exception\ModelNotFoundException;
-use WishApp\Model\User;
+use WishApp\Model\User\User;
 use WishApp\Service\Auth\Exception\EmailAlreadyInUseException;
 use WishApp\Service\Auth\Exception\InvalidPasswordException;
-use WishApp\ValueObject\Email;
-use WishApp\ValueObject\Password;
-use WishApp\ValueObject\PersonalName;
+use WishApp\Model\User\ValueObject\Email;
+use WishApp\Model\User\ValueObject\Password;
+use WishApp\Model\User\ValueObject\PersonalName;
 
 interface AuthServiceInterface
 {

@@ -1,19 +1,19 @@
 <?php
 
-namespace WishApp\Model;
+namespace WishApp\Model\Wish;
 
-use WishApp\ValueObject\WishAmount;
-use WishApp\ValueObject\WishDescription;
-use WishApp\ValueObject\WishTitle;
 use Ramsey\Uuid\UuidInterface;
+use WishApp\Model\Wish\ValueObject\Amount;
+use WishApp\Model\Wish\ValueObject\Description;
+use WishApp\Model\Wish\ValueObject\Title;
 
 class Wish
 {
     private UuidInterface $uuid;
     private UuidInterface $userId;
-    private WishTitle $title;
-    private WishAmount $amount;
-    private ?WishDescription $description;
+    private Title $title;
+    private Amount $amount;
+    private ?Description $description;
     private ?\DateTimeImmutable $dueDate;
     private \DateTimeImmutable $createdAt;
     private \DateTimeImmutable $updatedAt;
@@ -21,9 +21,9 @@ class Wish
     public function __construct(
         UuidInterface $uuid,
         UuidInterface $userId,
-        WishTitle $title,
-        WishAmount $amount,
-        ?WishDescription $description = null,
+        Title $title,
+        Amount $amount,
+        ?Description $description = null,
         ?\DateTimeImmutable $dueDate = null,
         ?\DateTimeImmutable $createdAt = null,
         ?\DateTimeImmutable $updatedAt = null
@@ -48,17 +48,17 @@ class Wish
         return $this->userId;
     }
 
-    public function getTitle(): WishTitle
+    public function getTitle(): Title
     {
         return $this->title;
     }
 
-    public function getAmount(): WishAmount
+    public function getAmount(): Amount
     {
         return $this->amount;
     }
 
-    public function getDescription(): WishDescription
+    public function getDescription(): Description
     {
         return $this->description;
     }
@@ -78,13 +78,13 @@ class Wish
         return $this->updatedAt;
     }
 
-    public function setTitle(WishTitle $title): void
+    public function setTitle(Title $title): void
     {
         $this->title = $title;
         $this->updatedAt = new \DateTimeImmutable();
     }
 
-    public function setDescription(?WishDescription $description = null): void
+    public function setDescription(?Description $description = null): void
     {
         $this->description = $description;
         $this->updatedAt = new \DateTimeImmutable();

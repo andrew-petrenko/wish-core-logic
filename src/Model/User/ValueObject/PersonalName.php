@@ -1,6 +1,6 @@
 <?php
 
-namespace WishApp\ValueObject;
+namespace WishApp\Model\User\ValueObject;
 
 class PersonalName
 {

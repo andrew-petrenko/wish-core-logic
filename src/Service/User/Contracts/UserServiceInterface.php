@@ -2,10 +2,10 @@
 
 namespace WishApp\Service\User\Contracts;
 
-use WishApp\Model\User;
-use WishApp\ValueObject\Email;
-use WishApp\ValueObject\HashedPassword;
-use WishApp\ValueObject\PersonalName;
+use WishApp\Model\User\User;
+use WishApp\Model\User\ValueObject\Email;
+use WishApp\Model\User\ValueObject\HashedPassword;
+use WishApp\Model\User\ValueObject\PersonalName;
 
 interface UserServiceInterface
 {

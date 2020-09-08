@@ -1,11 +1,11 @@
 <?php
 
-namespace WishApp\Model;
+namespace WishApp\Model\User;
 
-use WishApp\ValueObject\Email;
-use WishApp\ValueObject\HashedPassword;
-use WishApp\ValueObject\PersonalName;
 use Ramsey\Uuid\UuidInterface;
+use WishApp\Model\User\ValueObject\Email;
+use WishApp\Model\User\ValueObject\HashedPassword;
+use WishApp\Model\User\ValueObject\PersonalName;
 
 class User
 {

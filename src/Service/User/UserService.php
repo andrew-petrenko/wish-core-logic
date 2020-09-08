@@ -3,12 +3,12 @@
 namespace WishApp\Service\User;
 
 use Ramsey\Uuid\Uuid;
-use WishApp\Model\User;
+use WishApp\Model\User\User;
+use WishApp\Model\User\ValueObject\Email;
+use WishApp\Model\User\ValueObject\HashedPassword;
+use WishApp\Model\User\ValueObject\PersonalName;
 use WishApp\Repository\Contracts\UserRepositoryInterface;
 use WishApp\Service\User\Contracts\UserServiceInterface;
-use WishApp\ValueObject\Email;
-use WishApp\ValueObject\HashedPassword;
-use WishApp\ValueObject\PersonalName;
 
 class UserService implements UserServiceInterface
 {

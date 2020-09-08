@@ -1,6 +1,6 @@
 <?php
 
-namespace WishApp\Model;
+namespace WishApp\Model\Wish;
 
 class WishCollection
 {

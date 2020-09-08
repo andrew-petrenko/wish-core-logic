@@ -2,8 +2,8 @@
 
 namespace WishApp\Repository\Contracts;
 
-use WishApp\Model\User;
-use WishApp\ValueObject\Email;
+use WishApp\Model\User\User;
+use WishApp\Model\User\ValueObject\Email;
 
 interface UserRepositoryInterface
 {

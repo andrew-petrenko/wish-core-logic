@@ -2,18 +2,18 @@
 
 namespace WishApp\Service\Wish\DTO;
 
-use WishApp\ValueObject\WishDescription;
-use WishApp\ValueObject\WishTitle;
+use WishApp\Model\Wish\ValueObject\Description;
+use WishApp\Model\Wish\ValueObject\Title;
 
 class UpdateWishDTO
 {
-    private ?WishTitle $title;
-    private ?WishDescription $description;
+    private ?Title $title;
+    private ?Description $description;
     private ?\DateTimeImmutable $dueDate;
 
     public function __construct(
-        ?WishTitle $title = null,
-        ?WishDescription $description = null,
+        ?Title $title = null,
+        ?Description $description = null,
         ?\DateTimeImmutable $dueDate = null
     ) {
         $this->title = $title;
@@ -28,18 +28,18 @@ class UpdateWishDTO
         $params['due_date'] = $params['due_date'] ?? null;
 
         return new self(
-            $params['title'] ? WishTitle::fromString($params['title']) : null,
-            $params['description'] ? WishDescription::fromString($params['description']) : null,
+            $params['title'] ? Title::fromString($params['title']) : null,
+            $params['description'] ? Description::fromString($params['description']) : null,
             $params['due_date'] ? new \DateTimeImmutable($params['due_date']) : null
         );
     }
 
-    public function getTitle(): ?WishTitle
+    public function getTitle(): ?Title
     {
         return $this->title;
     }
 
-    public function getDescription(): ?WishDescription
+    public function getDescription(): ?Description
     {
         return $this->description;
     }

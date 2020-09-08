@@ -2,10 +2,9 @@
 
 namespace WishApp\Repository\Contracts;
 
-use WishApp\Model\Wish;
-use WishApp\Model\WishCollection;
-use Exception;
 use Ramsey\Uuid\UuidInterface;
+use WishApp\Model\Wish\Wish;
+use WishApp\Model\Wish\WishCollection;
 
 interface WishRepositoryInterface
 {

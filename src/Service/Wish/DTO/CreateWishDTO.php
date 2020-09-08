@@ -2,25 +2,25 @@
 
 namespace WishApp\Service\Wish\DTO;
 
-use WishApp\ValueObject\WishDescription;
-use WishApp\ValueObject\WishTitle;
 use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use WishApp\Model\Wish\ValueObject\Description;
+use WishApp\Model\Wish\ValueObject\Title;
 
 class CreateWishDTO
 {
     private UuidInterface $userId;
-    private WishTitle $title;
+    private Title $title;
     private Money $goalAmount;
-    private ?WishDescription $description;
+    private ?Description $description;
     private ?\DateTimeImmutable $dueDate;
 
     public function __construct(
         UuidInterface $userId,
-        WishTitle $title,
+        Title $title,
         Money $goalAmount,
-        ?WishDescription $description = null,
+        ?Description $description = null,
         ?\DateTimeImmutable $dueDate = null
     ) {
         $this->userId = $userId;
@@ -37,9 +37,9 @@ class CreateWishDTO
 
         return new self(
             Uuid::fromString($params['user_id']),
-            WishTitle::fromString($params['title']),
+            Title::fromString($params['title']),
             Money::USD($params['goal_amount']),
-            $params['description'] ? WishDescription::fromString($params['description']) : null,
+            $params['description'] ? Description::fromString($params['description']) : null,
             $params['due_date'] ? new \DateTimeImmutable($params['due_date']) : null
         );
     }
@@ -49,7 +49,7 @@ class CreateWishDTO
         return $this->userId;
     }
 
-    public function getTitle(): WishTitle
+    public function getTitle(): Title
     {
         return $this->title;
     }
@@ -59,7 +59,7 @@ class CreateWishDTO
         return $this->goalAmount;
     }
 
-    public function getDescription(): WishDescription
+    public function getDescription(): Description
     {
         return $this->description;
     }

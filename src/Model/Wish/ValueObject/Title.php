@@ -1,11 +1,11 @@
 <?php
 
-namespace WishApp\ValueObject;
+namespace WishApp\Model\Wish\ValueObject;
 
 use WishApp\Util\StringValueObject;
 use WishApp\Util\ValidatableValueObject;
 
-class WishTitle extends StringValueObject
+class Title extends StringValueObject
 {
     use ValidatableValueObject;
 
