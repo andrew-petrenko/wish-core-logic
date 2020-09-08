@@ -2,14 +2,13 @@
 
 namespace WishApp\Service\User;
 
+use Ramsey\Uuid\Uuid;
 use WishApp\Model\User;
 use WishApp\Repository\Contracts\UserRepositoryInterface;
-use WishApp\Repository\Exception\FailedToSaveException;
 use WishApp\Service\User\Contracts\UserServiceInterface;
 use WishApp\ValueObject\Email;
 use WishApp\ValueObject\HashedPassword;
 use WishApp\ValueObject\PersonalName;
-use Ramsey\Uuid\Uuid;
 
 class UserService implements UserServiceInterface
 {
@@ -28,8 +27,7 @@ class UserService implements UserServiceInterface
             $email,
             $hashedPassword
         );
-
-        $this->save($user);
+        $this->userRepository->save($user);
 
         return $user;
     }
@@ -42,17 +40,5 @@ class UserService implements UserServiceInterface
     public function getOneByEmail(Email $email): ?User
     {
         return $this->userRepository->findOneByEmail($email);
-    }
-
-    /**
-     * @throws FailedToSaveException
-     */
-    private function save(User $user): void
-    {
-        try {
-            $this->userRepository->save($user);
-        } catch (\Exception $e) {
-            throw new FailedToSaveException();
-        }
     }
 }

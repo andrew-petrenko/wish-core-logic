@@ -2,19 +2,18 @@
 
 namespace WishApp\Service\Wish;
 
+use Money\Money;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use WishApp\Model\Exception\ModelNotFoundException;
 use WishApp\Model\Wish;
 use WishApp\Model\WishCollection;
 use WishApp\Repository\Contracts\WishRepositoryInterface;
-use WishApp\Repository\Exception\FailedToSaveException;
 use WishApp\Service\Wish\Contracts\WishServiceInterface;
 use WishApp\Service\Wish\DTO\CreateWishDTO;
 use WishApp\Service\Wish\DTO\UpdateWishDTO;
 use WishApp\Service\Wish\Exception\PermissionDeniedException;
 use WishApp\ValueObject\WishAmount;
-use Money\Money;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 /**
  * @TODO how define is user authorized to update/delete some wish?
@@ -41,8 +40,7 @@ class WishService implements WishServiceInterface
             $createDTO->getDescription(),
             $createDTO->getDueDate(),
         );
-
-        $this->save($wish);
+        $this->wishRepository->save($wish);
 
         return $wish;
     }
@@ -66,7 +64,7 @@ class WishService implements WishServiceInterface
             new \DateTimeImmutable()
         );
 
-        $this->save($wish);
+        $this->wishRepository->save($wish);
 
         return $wish;
     }
@@ -80,7 +78,7 @@ class WishService implements WishServiceInterface
         }
 
         $wish->getAmount()->setGoalAmount($money);
-        $this->save($wish);
+        $this->wishRepository->save($wish);
 
         return $wish;
     }
@@ -94,7 +92,7 @@ class WishService implements WishServiceInterface
         }
 
         $wish->getAmount()->chargeDeposit($money);
-        $this->save($wish);
+        $this->wishRepository->save($wish);
 
         return $wish;
     }
@@ -125,17 +123,5 @@ class WishService implements WishServiceInterface
         }
 
         return $wish;
-    }
-
-    /**
-     * @throws FailedToSaveException
-     */
-    private function save(Wish $wish): void
-    {
-        try {
-            $this->wishRepository->save($wish);
-        } catch (\Exception $e) {
-            throw new FailedToSaveException($e->getMessage());
-        }
     }
 }

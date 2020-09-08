@@ -23,7 +23,6 @@ interface WishRepositoryInterface
 
     /**
      * @param Wish $wish
-     * @throws Exception
      */
     public function save(Wish $wish): void;
 

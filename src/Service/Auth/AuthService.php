@@ -8,7 +8,6 @@ use WishApp\Service\Auth\Contracts\AuthServiceInterface;
 use WishApp\Service\Auth\Contracts\PasswordServiceInterface;
 use WishApp\Service\Auth\Exception\EmailAlreadyInUseException;
 use WishApp\Service\Auth\Exception\InvalidPasswordException;
-use WishApp\Service\Auth\Exception\RegistrationFailedException;
 use WishApp\Service\User\Contracts\UserServiceInterface;
 use WishApp\ValueObject\Email;
 use WishApp\ValueObject\Password;
@@ -35,13 +34,7 @@ class AuthService implements AuthServiceInterface
 
         $hashedPassword = $this->passwordService->hash($password);
 
-        try {
-            $user = $this->userService->create($name, $email, $hashedPassword);
-        } catch (\Exception $e) {
-            throw new RegistrationFailedException();
-        }
-
-        return $user;
+        return $this->userService->create($name, $email, $hashedPassword);
     }
 
     public function login(Email $email, Password $password): User

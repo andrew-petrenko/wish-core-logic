@@ -3,7 +3,6 @@
 namespace WishApp\Service\User\Contracts;
 
 use WishApp\Model\User;
-use WishApp\Repository\Exception\FailedToSaveException;
 use WishApp\ValueObject\Email;
 use WishApp\ValueObject\HashedPassword;
 use WishApp\ValueObject\PersonalName;
@@ -15,7 +14,6 @@ interface UserServiceInterface
      * @param Email $email
      * @param HashedPassword $hashedPassword
      * @return User
-     * @throws FailedToSaveException
      */
     public function create(PersonalName $name, Email $email, HashedPassword $hashedPassword): User;
 
