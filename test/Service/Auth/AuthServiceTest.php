@@ -2,18 +2,18 @@
 
 namespace WishApp\Tests\Service\Auth;
 
+use PHPUnit\Framework\TestCase;
 use WishApp\Model\Exception\ModelNotFoundException;
-use WishApp\Model\User;
+use WishApp\Model\User\User;
+use WishApp\Model\User\ValueObject\Email;
+use WishApp\Model\User\ValueObject\HashedPassword;
+use WishApp\Model\User\ValueObject\Password;
+use WishApp\Model\User\ValueObject\PersonalName;
 use WishApp\Service\Auth\AuthService;
 use WishApp\Service\Auth\Contracts\PasswordServiceInterface;
 use WishApp\Service\Auth\Exception\EmailAlreadyInUseException;
 use WishApp\Service\Auth\Exception\InvalidPasswordException;
 use WishApp\Service\User\Contracts\UserServiceInterface;
-use WishApp\ValueObject\Email;
-use WishApp\ValueObject\HashedPassword;
-use WishApp\ValueObject\Password;
-use WishApp\ValueObject\PersonalName;
-use PHPUnit\Framework\TestCase;
 
 class AuthServiceTest extends TestCase
 {
@@ -58,7 +58,7 @@ class AuthServiceTest extends TestCase
         $this->assertInstanceOf(User::class, $user);
     }
 
-    public function testCantRegisterIfEmailIsNotUnique()
+    public function testRegisterThrowsWhenEmailIsNotUnique()
     {
         $authService = new AuthService(
             $this->userService,
@@ -113,7 +113,7 @@ class AuthServiceTest extends TestCase
             ->willReturn(null);
 
         $this->expectException(ModelNotFoundException::class);
-        $this->expectExceptionMessage('Given email is invalid');
+        $this->expectExceptionMessage('User with that email not found');
 
         $authService->login(
             Email::fromString('something@ex.com'),

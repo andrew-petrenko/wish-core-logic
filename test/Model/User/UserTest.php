@@ -1,15 +1,15 @@
 <?php
 
-namespace WishApp\Tests\Model;
+namespace WishApp\Tests\Model\User;
 
-use WishApp\Model\User;
-use WishApp\ValueObject\Email;
-use WishApp\ValueObject\HashedPassword;
-use WishApp\ValueObject\Name;
-use WishApp\ValueObject\PersonalName;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use WishApp\Model\User\User;
+use WishApp\Model\User\ValueObject\Email;
+use WishApp\Model\User\ValueObject\HashedPassword;
+use WishApp\Model\User\ValueObject\Name;
+use WishApp\Model\User\ValueObject\PersonalName;
 
 class UserTest extends TestCase
 {
@@ -81,5 +81,46 @@ class UserTest extends TestCase
 
         $this->assertInstanceOf(HashedPassword::class, $user->getHashedPassword());
         $this->assertEquals('SomeHash', $user->getHashedPassword()->value());
+    }
+
+    public function testGetCreatedAt()
+    {
+        $createdAt = new \DateTimeImmutable();
+
+        $user = new User(
+            Uuid::uuid4(),
+            new PersonalName(new Name('Firstname'), new Name('Lastname')),
+            new Email('something@ex.com'),
+            new HashedPassword('some example hash'),
+            $createdAt
+        );
+
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getCreatedAt());
+        $this->assertEquals($createdAt, $user->getCreatedAt());
+        $this->assertEquals(
+            $createdAt->format('Y-m-d H:i:s'),
+            $user->getCreatedAt()->format('Y-m-d H:i:s')
+        );
+    }
+
+    public function testGetUpdatedAt()
+    {
+        $updatedAt = new \DateTimeImmutable();
+
+        $user = new User(
+            Uuid::uuid4(),
+            new PersonalName(new Name('Firstname'), new Name('Lastname')),
+            new Email('something@ex.com'),
+            new HashedPassword('some example hash'),
+            new \DateTimeImmutable(),
+            $updatedAt
+        );
+
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getUpdatedAt());
+        $this->assertEquals($updatedAt, $user->getUpdatedAt());
+        $this->assertEquals(
+            $updatedAt->format('Y-m-d H:i:s'),
+            $user->getUpdatedAt()->format('Y-m-d H:i:s')
+        );
     }
 }
