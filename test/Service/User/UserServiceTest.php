@@ -2,15 +2,14 @@
 
 namespace WishApp\Tests\Service\User;
 
-use WishApp\Model\User;
-use WishApp\Repository\Contracts\UserRepositoryInterface;
-use WishApp\Repository\Exception\FailedToSaveException;
-use WishApp\Service\User\UserService;
-use WishApp\ValueObject\Email;
-use WishApp\ValueObject\HashedPassword;
-use WishApp\ValueObject\PersonalName;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use WishApp\Model\User\User;
+use WishApp\Model\User\ValueObject\Email;
+use WishApp\Model\User\ValueObject\HashedPassword;
+use WishApp\Model\User\ValueObject\PersonalName;
+use WishApp\Repository\Contracts\UserRepositoryInterface;
+use WishApp\Service\User\UserService;
 
 class UserServiceTest extends TestCase
 {
@@ -33,24 +32,6 @@ class UserServiceTest extends TestCase
         );
 
         $this->assertInstanceOf(User::class, $result);
-    }
-
-    public function testCreateThrowsOnDatabaseException()
-    {
-        $this->userRepository
-            ->method('save')
-            ->with($this->createMock(User::class))
-            ->willThrowException(new \Exception());
-
-        $service = new UserService($this->userRepository);
-
-        $this->expectException(FailedToSaveException::class);
-
-        $service->create(
-            PersonalName::fromStrings('Firstname', 'Lastname'),
-            Email::fromString('some@ex.com'),
-            HashedPassword::fromString('somehash')
-        );
     }
 
     public function testDoesEmailExist()
