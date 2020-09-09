@@ -21,23 +21,23 @@ class PersonalName
         );
     }
 
-    public function getFirstName(): string
+    public function getFirstName(): Name
     {
         return $this->firstName;
     }
 
-    public function getLastName(): string
+    public function getLastName(): Name
     {
         return $this->lastName;
     }
 
-    public function getFullName(): string
+    public function getFormattedFullName(): string
     {
         return $this->firstName . ' ' . $this->lastName;
     }
 
     public function __toString(): string
     {
-        return $this->getFullName();
+        return $this->getFormattedFullName();
     }
 }

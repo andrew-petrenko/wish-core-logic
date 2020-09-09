@@ -40,7 +40,7 @@ class AuthService implements AuthServiceInterface
     public function login(Email $email, Password $password): User
     {
         if (!$user = $this->userService->getOneByEmail($email)) {
-            throw new ModelNotFoundException('Given email is invalid');
+            throw new ModelNotFoundException('User with that email not found');
         }
 
         if (!$this->passwordService->verify($user->getHashedPassword(), $password)) {

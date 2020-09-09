@@ -13,7 +13,7 @@ class Amount
     public function __construct(Money $goalAmount, ?Money $depositedAmount = null)
     {
         $this->goalAmount = $goalAmount;
-        $this->depositedAmount = $depositedAmount ?? new Money(0, new Currency('USD'));
+        $this->depositedAmount = $depositedAmount ?? Money::USD(0);
     }
 
     public function getGoalAmount(): Money

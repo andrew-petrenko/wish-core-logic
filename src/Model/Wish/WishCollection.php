@@ -20,6 +20,11 @@ class WishCollection
         $this->items = $items;
     }
 
+    public function add(Wish $wish): void
+    {
+        $this->items[] = $wish;
+    }
+
     /**
      * @return Wish[]|array
      */

@@ -15,12 +15,6 @@ use WishApp\Service\Wish\DTO\CreateWishDTO;
 use WishApp\Service\Wish\DTO\UpdateWishDTO;
 use WishApp\Service\Wish\Exception\PermissionDeniedException;
 
-/**
- * @TODO how define is user authorized to update/delete some wish?
- *      Simple way - add userId param and check, is that wish related to that wish entity.
- *      In that case we delegate auth functional to "implementation" layer.
- *      Need to research another way of doing that.
- */
 class WishService implements WishServiceInterface
 {
     private WishRepositoryInterface $wishRepository;
@@ -56,10 +50,10 @@ class WishService implements WishServiceInterface
         $wish = new Wish(
             $wish->getId(),
             $authUserId,
-            $updateDTO->getTitle(),
+            $updateDTO->getTitle() ?? $wish->getTitle(),
             $wish->getAmount(),
-            $updateDTO->getDescription(),
-            $updateDTO->getDueDate(),
+            $updateDTO->getDescription() ?? $wish->getDescription(),
+            $updateDTO->getDueDate() ?? $wish->getDueDate(),
             $wish->getCreatedAt(),
             new \DateTimeImmutable()
         );

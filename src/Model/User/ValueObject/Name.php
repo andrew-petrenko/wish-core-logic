@@ -11,7 +11,7 @@ class Name extends StringValueObject
 
     protected static function isValid(string $value): bool
     {
-        return preg_match('#^[A-Za-z]{1,255}#', $value);
+        return preg_match('#^[A-Za-z]{1,35}$#', $value);
     }
 
     protected static function validationErrorMessage(): string

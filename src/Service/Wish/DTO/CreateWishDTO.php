@@ -6,6 +6,7 @@ use Money\Money;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use WishApp\Model\Wish\ValueObject\Description;
+use WishApp\Model\Wish\ValueObject\DueDate;
 use WishApp\Model\Wish\ValueObject\Title;
 
 class CreateWishDTO
@@ -14,14 +15,14 @@ class CreateWishDTO
     private Title $title;
     private Money $goalAmount;
     private ?Description $description;
-    private ?\DateTimeImmutable $dueDate;
+    private ?DueDate $dueDate;
 
     public function __construct(
         UuidInterface $userId,
         Title $title,
         Money $goalAmount,
         ?Description $description = null,
-        ?\DateTimeImmutable $dueDate = null
+        ?DueDate $dueDate = null
     ) {
         $this->userId = $userId;
         $this->title = $title;
@@ -40,7 +41,7 @@ class CreateWishDTO
             Title::fromString($params['title']),
             Money::USD($params['goal_amount']),
             $params['description'] ? Description::fromString($params['description']) : null,
-            $params['due_date'] ? new \DateTimeImmutable($params['due_date']) : null
+            $params['due_date'] ? new DueDate(new \DateTimeImmutable($params['due_date'])) : null
         );
     }
 
@@ -59,12 +60,12 @@ class CreateWishDTO
         return $this->goalAmount;
     }
 
-    public function getDescription(): Description
+    public function getDescription(): ?Description
     {
         return $this->description;
     }
 
-    public function getDueDate(): \DateTimeImmutable
+    public function getDueDate(): ?DueDate
     {
         return $this->dueDate;
     }

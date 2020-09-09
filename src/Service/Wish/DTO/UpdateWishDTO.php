@@ -3,18 +3,19 @@
 namespace WishApp\Service\Wish\DTO;
 
 use WishApp\Model\Wish\ValueObject\Description;
+use WishApp\Model\Wish\ValueObject\DueDate;
 use WishApp\Model\Wish\ValueObject\Title;
 
 class UpdateWishDTO
 {
     private ?Title $title;
     private ?Description $description;
-    private ?\DateTimeImmutable $dueDate;
+    private ?DueDate $dueDate;
 
     public function __construct(
         ?Title $title = null,
         ?Description $description = null,
-        ?\DateTimeImmutable $dueDate = null
+        ?DueDate $dueDate = null
     ) {
         $this->title = $title;
         $this->description = $description;
@@ -30,7 +31,7 @@ class UpdateWishDTO
         return new self(
             $params['title'] ? Title::fromString($params['title']) : null,
             $params['description'] ? Description::fromString($params['description']) : null,
-            $params['due_date'] ? new \DateTimeImmutable($params['due_date']) : null
+            $params['due_date'] ? new DueDate(new \DateTimeImmutable($params['due_date'])) : null
         );
     }
 
@@ -44,7 +45,7 @@ class UpdateWishDTO
         return $this->description;
     }
 
-    public function getDueDate(): ?\DateTimeImmutable
+    public function getDueDate(): ?DueDate
     {
         return $this->dueDate;
     }

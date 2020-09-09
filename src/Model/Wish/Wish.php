@@ -2,9 +2,11 @@
 
 namespace WishApp\Model\Wish;
 
+use Money\Money;
 use Ramsey\Uuid\UuidInterface;
 use WishApp\Model\Wish\ValueObject\Amount;
 use WishApp\Model\Wish\ValueObject\Description;
+use WishApp\Model\Wish\ValueObject\DueDate;
 use WishApp\Model\Wish\ValueObject\Title;
 
 class Wish
@@ -14,7 +16,7 @@ class Wish
     private Title $title;
     private Amount $amount;
     private ?Description $description;
-    private ?\DateTimeImmutable $dueDate;
+    private ?DueDate $dueDate;
     private \DateTimeImmutable $createdAt;
     private \DateTimeImmutable $updatedAt;
 
@@ -24,7 +26,7 @@ class Wish
         Title $title,
         Amount $amount,
         ?Description $description = null,
-        ?\DateTimeImmutable $dueDate = null,
+        ?DueDate $dueDate = null,
         ?\DateTimeImmutable $createdAt = null,
         ?\DateTimeImmutable $updatedAt = null
     ) {
@@ -58,12 +60,22 @@ class Wish
         return $this->amount;
     }
 
-    public function getDescription(): Description
+    public function getGoalAmount(): Money
+    {
+        return $this->amount->getGoalAmount();
+    }
+
+    public function getDepositedAmount(): Money
+    {
+        return $this->amount->getDepositedAmount();
+    }
+
+    public function getDescription(): ?Description
     {
         return $this->description;
     }
 
-    public function getDueDate(): ?\DateTimeImmutable
+    public function getDueDate(): ?DueDate
     {
         return $this->dueDate;
     }
@@ -90,7 +102,7 @@ class Wish
         $this->updatedAt = new \DateTimeImmutable();
     }
 
-    public function setDueDate(?\DateTimeImmutable $dueDate = null): void
+    public function setDueDate(?DueDate $dueDate = null): void
     {
         $this->dueDate = $dueDate;
         $this->updatedAt = new \DateTimeImmutable();
@@ -103,6 +115,6 @@ class Wish
 
     public function isActual(): bool
     {
-        return is_null($this->dueDate) ?: !(new \DateTimeImmutable())->diff($this->dueDate)->invert;
+        return is_null($this->dueDate) ?: !(new \DateTimeImmutable())->diff($this->dueDate->value())->invert;
     }
 }
